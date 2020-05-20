@@ -31,7 +31,7 @@
             </div>
         </div> 
 
-       <mp></mp>
+       <conversation></conversation>
 
         
     </div>
@@ -39,12 +39,12 @@
 
 <script>
 
-import mp from "@/components/mp.vue";
+import conversation from "@/components/conversation.vue";
 
 export default {
     name:"Main",
     components:{
-        mp
+        conversation
     }
 };
 </script>
