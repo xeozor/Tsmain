@@ -1,10 +1,10 @@
 <template>
+  <div class="mp-main">      
 
-  <div class="mp-main">
       <div class="mp-topnav">
           <div class="topnav-item-1">
               <ul class="ti-1">
-                  <li class="add-task-btn">Add task</li>
+                  <li v-on:click="addTaskModalt" class="add-task-btn">Add task</li>
                   <li class="title-descr">Title</li>
                   <li><input type="text" placeholder="Search.." name="search"></li>
               </ul>
@@ -119,13 +119,39 @@
 
 <script>
 export default {
-    name:"mp"
+    name:"mp",    
+    computed:{
+      addtaskm(){
+          return this.$store.state.addtaskm;
+        },
+        addmemberm(){
+          return this.$store.state.addmemberm;
+        }  
+    },
+    data(){
+        return{        
+        }
+    },
+    methods:{
+        addTaskModalt: function(){
+            this.$store.commit('addTaskModalt');
+        },
+        addTaskModalf: function(){
+            this.$store.commit('addTaskModalf');
+        },
+        addMemberModalt: function(){
+            this.$store.commit('addMemberModalt');
+        },
+        addMemberModalf: function(){
+            this.$store.commit('addMemberModalf');
+        }
+    }
 };
 </script>
 
 <style scoped>
 .mp-main{
-    z-index: 1002;
+    z-index: 998;
     position: absolute;
     top:160px;
     left:23vmin;
@@ -169,6 +195,7 @@ export default {
     border: 3px solid #A7A5EF;    
     border-radius: 4px;
     padding: 9.5px;
+    cursor: pointer;
 }
 .add-task-btn:hover{
     color:#FFFFFF;
@@ -220,7 +247,8 @@ export default {
 }
 .mp-mainpage{
     margin-top: 12px;
-    padding-top: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
