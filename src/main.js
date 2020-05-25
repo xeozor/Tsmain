@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import firebase from "firebase";
+import 'firebase/firestore'
 import VeeValidate from 'vee-validate';
 Vue.config.productionTip = false;
 
@@ -16,8 +17,8 @@ Vue.config.productionTip = false;
   appId: "1:129418829009:web:bee84d28951f5db18e39f0"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const db = firebaseApp.firestore();
 // dataBase.settings({timestampsInSnapshots: true});
 
 

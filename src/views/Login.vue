@@ -38,6 +38,7 @@ export default {
         signIn: function(e){
             e.preventDefault();
             firebase.auth().signInWithEmailAndPassword(this.signinEmail, this.signinPassword).then(cred =>{
+                this.$router.push('/Main')
                 console.log(cred.user)
                 }
             )

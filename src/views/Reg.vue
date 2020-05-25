@@ -28,8 +28,7 @@
 
 
 
-<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-firestore.js"></script>
+
 <script>
 import firebase, { database } from "firebase";
 import firestore from "firebase";
@@ -48,15 +47,17 @@ export default {
     methods: {
         signUp: function(e){
             e.preventDefault();
-            const newCollection = {
+            
+            firebase.auth().createUserWithEmailAndPassword(this.signupEmail, this.signupPassword).then(res =>{  
+            
+                let newCollection = {
                     email: this.signupEmail,
-                    name: this.signupUsername
+                    name: this.signupUsername,
+                    id:res.user.uid
                 }
-            firebase.auth().createUserWithEmailAndPassword(this.signupEmail, this.signupPassword).then(cred =>{  
-               
-                    console.log(cred.user),     
-                    alert("new account has been created"),
-                   firebase.firestore().collection.doc('testUsers').add(newCollection)
+                    alert("new account has been created");
+                  
+                    firebase.firestore().collection('Users').doc().set(newCollection)
                 }
             )
             
