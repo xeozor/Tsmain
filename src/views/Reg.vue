@@ -15,18 +15,56 @@
               <p class="login-with-g">Login with google</p>
           </div>
           <p class="lg-info-txt">Use your real e-mail and create safe password</p>
-          <form action="" class="reg-form">
-              <input type="text" name="reg-name" placeholder="your name">
-              <input type="text" name="reg-mail" placeholder="name@company.com">
-              <input type="text" name="reg-pass" placeholder="password">
-              <input type="submit" value="Confirm" class="reg-submit">
+          <form action="" class="regform">
+              <input type="text" name="reg-name" placeholder="Your name" id="signup-username" v-model="signupUsername">
+              <input type="text" name="reg-mail" placeholder="name@company.com" id="signup-email" v-model="signupEmail">
+              <input type="text" name="reg-pass" placeholder="password" id="signup-password" v-model="signupPassword">
+              <input type="submit" value="Confirm" class="reg-submit" @click="signUp">
           </form>
       </div>
   </div>
 </template>
 
+
+
+
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-firestore.js"></script>
 <script>
+import firebase, { database } from "firebase";
+import firestore from "firebase";
+
 export default {
+    name: 'signUp',
+    
+    data() {
+        return{
+            signupEmail: '',
+            signupPassword: '',
+            signupUsername: '',
+            
+        }
+    },
+    methods: {
+        signUp: function(e){
+            e.preventDefault();
+            const newCollection = {
+                    email: this.signupEmail,
+                    name: this.signupUsername
+                }
+            firebase.auth().createUserWithEmailAndPassword(this.signupEmail, this.signupPassword).then(cred =>{  
+               
+                    console.log(cred.user),     
+                    alert("new account has been created"),
+                   firebase.firestore().collection.doc('testUsers').add(newCollection)
+                }
+            )
+            
+
+        }
+    }
+
+
 
 }
 </script>
@@ -84,7 +122,7 @@ body{
     width: 27px;
     height: 287px;
 }
-.reg-form-container{
+.regform-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -132,11 +170,11 @@ body{
     line-height: 33px;
     color: #8F8F8F;
 }
-.reg-form{
+.regform{
     display: flex;
     flex-direction: column;    
 }
-.reg-form input[type=text]{
+.regform input[type=text]{
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
@@ -144,7 +182,7 @@ body{
     line-height: 33px;
     color: #B4B4B4;
 }
-.reg-form input{    
+.regform input{    
     width: 678px;
     height: 53px;
     border: 2px solid #D1D1D1;

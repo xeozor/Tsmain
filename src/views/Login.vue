@@ -15,16 +15,34 @@
               <p class="login-with-g">Login with google</p>
           </div>          
           <form action="" class="login-form">             
-              <input type="text" name="login-mail" placeholder="name@company.com">
-              <input type="text" name="login-pass" placeholder="password">
-              <input type="submit" value="Log in" class="login-submit">
+              <input type="text" name="login-mail" placeholder="name@company.com" v-model="signinEmail">
+              <input type="text" name="login-pass" placeholder="password" v-model="signinPassword">
+              <input type="submit" value="Log in" class="login-submit" @click="signIn">
           </form>
       </div>
   </div>
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
+    
+     name: 'signIn',
+    data() {
+        return{
+            signinEmail: '',
+            signinPassword: ''
+        }
+    },
+    methods: {
+        signIn: function(e){
+            e.preventDefault();
+            firebase.auth().signInWithEmailAndPassword(this.signinEmail, this.signinPassword).then(cred =>{
+                console.log(cred.user)
+                }
+            )
+        }
+    }
 
 }
 </script>
